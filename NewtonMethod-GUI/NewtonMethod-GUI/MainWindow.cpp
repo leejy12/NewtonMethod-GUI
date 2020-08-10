@@ -82,7 +82,7 @@ namespace winrt::NewtonMethod_GUI::implementation
         this->polynomial().Text(f.ToString());
 
         // Initiate Newton Method
-        auto result = NewtonMethod(f, start);
+        NewtonMethodResult result = NewtonMethod(f, start);
         if (result.success)
         {
             wchar_t wszTmp[64] = { 0 };
