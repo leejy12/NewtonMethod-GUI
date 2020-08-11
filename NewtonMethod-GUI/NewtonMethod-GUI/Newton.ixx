@@ -79,7 +79,7 @@ NewtonMethodResult NewtonMethod(const Polynomial& f, const double ix)
     static constexpr double EPSILON = 0.000000001;
 
     // initial guess is very close to root
-    if (f(ix) < EPSILON)
+    if (std::abs(f(ix)) < EPSILON)
         return { true, ix, L"" };
 
     double x0 = ix, x1, y, yprime;
