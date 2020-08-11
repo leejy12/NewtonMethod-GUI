@@ -6,6 +6,9 @@ module;
 export module Newton;
 
 export
+constexpr double EPSILON = 0.000000001;
+
+export
 struct NewtonMethodResult
 {
     bool success;
@@ -35,6 +38,10 @@ public:
 
     Polynomial Derivative() const
     {
+        // Handle constant functions. GH-#5
+        if (_degree == 0)
+            return Polynomial({ 0 });
+
         std::vector<double> vDerivedCoefficients(_degree);
 
         // Power rule
@@ -46,7 +53,12 @@ public:
 
     winrt::hstring ToString() const
     {
+        if (IsZeroFunction())
+            return winrt::hstring(L"0");
+
         std::wstringstream wss;
+
+        // We probably shouldn't be doing == and != operations on floating point values.
         for (int i = 0; i < _degree; i++)
         {
             if (_vCoeffecients[i] == 0)
@@ -71,12 +83,19 @@ public:
         
         return winrt::hstring(wss.str().c_str());
     }
+
+    bool IsZeroFunction() const
+    {
+        return (_degree == 0) && (_vCoeffecients[0] < EPSILON);
+    }
 };
 
 export
 NewtonMethodResult NewtonMethod(const Polynomial& f, const double ix)
 {
-    static constexpr double EPSILON = 0.000000001;
+    // Check if f is a zero function.    
+    if (f.IsZeroFunction())
+        return { false, NAN, L"Zero Function" };
 
     // initial guess is very close to root
     if (std::abs(f(ix)) < EPSILON)
@@ -85,8 +104,6 @@ NewtonMethodResult NewtonMethod(const Polynomial& f, const double ix)
     double x0 = ix, x1, y, yprime;
     const Polynomial fprime = f.Derivative();
     
-    // std::ofstream log("");
-
     static constexpr int MAX_ITERATION = 30;
     for (int i = 0; i < MAX_ITERATION; i++)
     {
