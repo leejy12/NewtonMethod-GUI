@@ -16,7 +16,8 @@ namespace winrt::NewtonMethod_GUI::implementation
         int32_t MyProperty();
         void MyProperty(int32_t value);
         
-        void OnGoButtonPress(const winrt::Windows::Foundation::IInspectable& e, const winrt::Microsoft::UI::Xaml::RoutedEventArgs& args);
+        void OnGoButtonPress(const winrt::Windows::Foundation::IInspectable& sender, const winrt::Microsoft::UI::Xaml::RoutedEventArgs& args);
+        void OnResetButtonPress(const winrt::Windows::Foundation::IInspectable& sender, const winrt::Microsoft::UI::Xaml::RoutedEventArgs & args);
     };
 }
 

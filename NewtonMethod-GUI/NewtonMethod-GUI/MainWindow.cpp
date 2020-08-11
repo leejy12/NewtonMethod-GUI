@@ -94,5 +94,14 @@ namespace winrt::NewtonMethod_GUI::implementation
             this->answer().Text(result.reason);
         }
     }
+
+    void MainWindow::OnResetButtonPress(const winrt::Windows::Foundation::IInspectable&, const winrt::Microsoft::UI::Xaml::RoutedEventArgs&)
+    {
+        this->coefficients().Text(L"");
+        this->startingValue().Text(L"");
+        this->invalidMessage().Text(L"");
+        this->polynomial().Text(L"");
+        this->answer().Text(L"");
+    }
 }
 

@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="Auto" MinWidth="250" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
@@ -42,8 +42,10 @@
                 <TextBox x:Name="answer" IsReadOnly="True" Margin="0 5 0 0"/>
             </StackPanel>
 
-            <Button Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" Background="Aqua" Click="OnGoButtonPress">GO</Button>
+            <Button Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" Background="GreenYellow" Click="OnGoButtonPress">GO</Button>
+            <Button Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" Background="LightSkyBlue" Click="OnResetButtonPress">Reset</Button>
         </Grid>
-        
+
     </StackPanel>
 </Window>
+
