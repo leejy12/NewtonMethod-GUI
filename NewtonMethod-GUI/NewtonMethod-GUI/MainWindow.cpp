@@ -78,11 +78,11 @@ namespace winrt::NewtonMethod_GUI::implementation
         }
         
         // Show polynomial
-        Polynomial f(vCoefficients);
+        const Polynomial f(vCoefficients);
         this->polynomial().Text(f.ToString());
 
         // Initiate Newton Method
-        NewtonMethodResult result = NewtonMethod(f, start);
+        const NewtonMethodResult result = NewtonMethod(f, start);
         if (result.success)
         {
             wchar_t wszTmp[64] = { 0 };
@@ -94,5 +94,5 @@ namespace winrt::NewtonMethod_GUI::implementation
             this->answer().Text(result.reason);
         }
     }
-
 }
+
