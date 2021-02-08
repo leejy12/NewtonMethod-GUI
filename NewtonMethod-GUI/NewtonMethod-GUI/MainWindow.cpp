@@ -29,29 +29,13 @@ namespace winrt::NewtonMethod_GUI::implementation
 
     void MainWindow::OnGoButtonPress(const winrt::Windows::Foundation::IInspectable&, const winrt::Microsoft::UI::Xaml::RoutedEventArgs&)
     {
-        // Check starting value (floating point number)
-        const wchar_t* wszStart = this->startingValue().Text().c_str();
-        char szStart[128] = { 0 };
-        BOOL bUsedDefaultChar;
-        char defaultChar = ' ';
-        WideCharToMultiByte(
-            CP_ACP,
-            0,
-            wszStart,
-            -1,
-            szStart,
-            sizeof(szStart),
-            &defaultChar,
-            &bUsedDefaultChar);
-        
+        // Check starting value (floating point number)        
+        std::string strVal = winrt::to_string(this->startingValue().Text());
         double start;
-        std::errc ec = (std::from_chars(szStart, szStart + std::strlen(szStart), start)).ec;
+        std::errc ec = (std::from_chars(strVal.data(), strVal.data() + strVal.size(), start)).ec;
 
         if (ec == std::errc{})
         {
-            wchar_t wszTmp[64] = { 0 };
-            std::swprintf(wszTmp, 64, L"%lg", start);
-            this->startingValue().Text(wszTmp);
             this->invalidMessage().Text(L"");
         }
         else
@@ -85,9 +69,7 @@ namespace winrt::NewtonMethod_GUI::implementation
         const NewtonMethodResult result = NewtonMethod(f, start);
         if (result.success)
         {
-            wchar_t wszTmp[64] = { 0 };
-            std::swprintf(wszTmp, 64, L"%lg", result.answer);
-            this->answer().Text(wszTmp);
+            this->answer().Text(winrt::to_hstring(result.answer));
         }
         else
         {
